@@ -1,0 +1,63 @@
+@{
+    var board = ViewData["Board"] as Board;
+    string[,] boardMatrix = board.BoardMatrix;
+    ViewData["WinsHuman"] = "Wins: " + board.WinsHuman;
+    ViewData["WinsIA"] = "Losses: " + board.WinsIA;
+    ViewData["Draws"] = "Draws: " + board.Draws;
+    ViewData["Padding"] = "20px";
+    ViewData["ButtonSize"] = "80px";
+    ViewData["Title"] = "Game Page";
+}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="text-center" style='padding:@ViewData["Padding"]'>
+        <h1>@ViewData["Title"]</h1>
+      </div>
+    </div>
+  </div>
+  <div class="row" style='padding:@ViewData["Padding"]'>
+    <div class="col-sm-4">
+      <div class="text-right">
+          <p>@ViewData["WinsHuman"]</p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="text-center">
+          <p>@ViewData["WinsIA"]</p>
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="text-left">
+          <p>@ViewData["Draws"]</p>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-8">
+      <table class="table table-bordered">
+        <tbody class="text-center">
+          @for (int i = 0; i < 3; i++)
+          {
+              <tr>
+                @for (int j = 0; j < 3; j++)
+                {
+                    <td>
+                      <form asp-controller="Game" asp-action="CellOnClick" method="post">
+                        <input type="hidden" name="row" value="@i">
+                        <input type="hidden" name="col" value="@j">
+                        <button type="submit" style='width:@ViewData["ButtonSize"];height:@ViewData["ButtonSize"]' class="btn-default">
+                          @boardMatrix[@i,@j]
+                        </button>
+                      </form>
+                    </td>
+                }
+              </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <div class="col-sm-2"></div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    ViewData["Selection"] = "Select player: ";
+    ViewData["FirstMove"] = "Starting move: ";
+    ViewData["Padding"] = "20px";
+}
+
+<div class="text-center" style='padding:@ViewData["Padding"]'>
+    <h1>@ViewData["Title"]</h1>
+</div>
+<div class="container-fluid">
+    <form asp-controller="Home" asp-action="StartNewGame" method="get">
+        <div class="row" style='padding:@ViewData["Padding"]'>
+            <div class="col-sm-6">
+                <div class="text-right">@ViewData["Selection"]</div>
+            </div>
+            <div class="col-sm-6">
+                <select name="selectedPlayer">
+                    <option value="O">O</option>
+                    <option value="X">X</option>
+                </select>
+            </div>
+        </div>
+        <div class="row" style='padding:@ViewData["Padding"]'>
+            <div class="col-sm-6">
+                <div class="text-right">@ViewData["FirstMove"]</div>
+            </div>
+            <div class="col-sm-6">
+                <input type="checkbox" name="startingMove" value="true">
+            </div>
+        </div>
+        <div class="text-center" style='padding:@ViewData["Padding"]'>
+            <input type="submit" value="Start Game"/>
+        </div>
+    </form>
+</div>

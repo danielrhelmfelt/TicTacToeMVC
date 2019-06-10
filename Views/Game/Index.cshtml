@@ -6,6 +6,8 @@
     ViewData["Draws"] = "Draws: " + board.Draws;
     ViewData["Padding"] = "20px";
     ViewData["ButtonSize"] = "80px";
+    ViewData["ScoresFontSize"] = "20px";
+    ViewData["CellFontSize"] = "30px";
     ViewData["Title"] = "Game Page";
 }
 <div class="container-fluid">
@@ -16,7 +18,7 @@
       </div>
     </div>
   </div>
-  <div class="row" style='padding:@ViewData["Padding"]'>
+  <div class="row" style='padding:@ViewData["Padding"];font-size:@ViewData["ScoresFontSize"];'>
     <div class="col-sm-4">
       <div class="text-right">
           <p>@ViewData["WinsHuman"]</p>
@@ -47,7 +49,7 @@
                       <form asp-controller="Game" asp-action="CellOnClick" method="post">
                         <input type="hidden" name="row" value="@i">
                         <input type="hidden" name="col" value="@j">
-                        <button type="submit" style='width:@ViewData["ButtonSize"];height:@ViewData["ButtonSize"]' class="btn-default">
+                        <button type="submit" style='width:@ViewData["ButtonSize"];height:@ViewData["ButtonSize"];font-size:@ViewData["CellFontSize"];' class="btn-default">
                           @boardMatrix[@i,@j]
                         </button>
                       </form>

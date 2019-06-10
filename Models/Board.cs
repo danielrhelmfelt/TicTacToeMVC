@@ -10,9 +10,11 @@ namespace MvcTicTacToe.Models
         public int WinsHuman { get; set; }
         public int WinsIA { get; set; }
         public int Draws { get; set; }
+        public bool IaDeactivated { get; set; }
 
         public Board()
         {
+            IaDeactivated = true;
             BoardMatrix = new string[3, 3];
             clearBoard();
         }
@@ -41,8 +43,36 @@ namespace MvcTicTacToe.Models
             doIaTurnMove();
         }
 
+        public void doIaRandomMove()
+        {
+            if (checkForWinner() == false)
+            {
+                // genera una fila y columna aleatoria y si la posicion esta vacia, asigna la ficha
+                Random random = new Random();
+                int i, j;
+                bool foundEmptyCell = false;
+                while (foundEmptyCell == false)
+                {
+                    i = random.Next(0, 3);
+                    j = random.Next(0, 3);
+                    if (string.IsNullOrEmpty(BoardMatrix[i, j]))
+                    {
+                        BoardMatrix[i, j] = getIaSelected();
+                        foundEmptyCell = true;
+                    }
+                }
+                checkForWinner();
+            }
+        }
+
+
         public void doIaTurnMove()
         {
+            if (IaDeactivated)
+            {
+                doIaRandomMove();
+                return;
+            }
             // se verifica que aun nadie haya ganado la partida, luego se pone la ficha y se vuelve a verificar
             if (checkForWinner() == false)
             {
